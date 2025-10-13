@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konversi Suhu</title>
+</head>
+<body>
+  <h2>Konversi Suhu Sederhana</h2>
+
+  <label for="nilai">Masukkan nilai suhu:</label>
+  <input type="number" id="nilai" placeholder="Contoh: 25">
+
+  <label for="dari">Dari:</label>
+  <select id="dari">
+    <option value="C">Celcius</option>
+    <option value="F">Fahrenheit</option>
+    <option value="K">Kelvin</option>
+  </select>
+
+  <label for="ke">Ke:</label>
+  <select id="ke">
+    <option value="C">Celcius</option>
+    <option value="F">Fahrenheit</option>
+    <option value="K">Kelvin</option>
+  </select>
+
+  <button onclick="konversi()">Konversi</button>
+
+  <h3>Hasil: <span id="hasil">-</span></h3>
+
+  <script>
+    function konversi() {
+      const nilai = parseFloat(document.getElementById("nilai").value);
+      const dari = document.getElementById("dari").value;
+      const ke = document.getElementById("ke").value;
+      let hasil;
+
+      if (isNaN(nilai)) {
+        hasil = "Masukkan angka yang valid!";
+      } else if (dari === ke) {
+        hasil = nilai + " " + ke;
+      } else {
+        // Konversi ke Celcius dulu
+        let celsius;
+        if (dari === "C") celsius = nilai;
+        else if (dari === "F") celsius = (nilai - 32) * 5/9;
+        else if (dari === "K") celsius = nilai - 273.15;
+
+        // Konversi dari Celcius ke target
+        if (ke === "C") hasil = celsius + " °C";
+        else if (ke === "F") hasil = (celsius * 9/5 + 32).toFixed(2) + " °F";
+        else if (ke === "K") hasil = (celsius + 273.15).toFixed(2) + " K";
+      }
+
+      document.getElementById("hasil").textContent = hasil;
+    }
+  </script>
+</body>
+</html>
